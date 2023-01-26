@@ -22,21 +22,41 @@ def view():
             print(f"Website: {website}, Username: {username}, Password: {pwd}")
 
 
+def delete():
+    site_delete = input("What website would you like to delete: ")
+    i=0
+    with open("accounts.txt", "r") as file:
+        lines = file.readlines()
+    with open("accounts.txt", "r") as file:
+        for line in file.readlines():
+            data = line.rstrip()
+            website, username, pwd = data.split("  ||  ")
+            while i <= len(line):
+                if website == site_delete:
+                    del lines[i]
+                    break
+                else:
+                    i += int(1)
+                    break
+    with open("accounts.txt", "w") as file:
+        for line in lines:
+            file.write(f"{line}")
+        print("Account sucessfully deleted!")
+        return
+
+
+
+
 def add():
     website = input("What website is the account connected to: ")
     username = input("Account log in: ")
     pwd = input("Account password: ")
 
-    with open("accounts.txt", "a") as file:
-        file.write(website + "  ||  "+ username + "  ||  "+ pwd + "\n")
+    with open("accounts.txt", "a+") as file:
+        file.writelines(website + "  ||  "+ username + "  ||  "+ pwd + "\n")
+    print("Account succesfully Added!")
 
-def delete():
-    website = input("What website is the account connected to: ")
-    username = input("Account log in: ")
-    pwd = input("Account password: ")
 
-    with open("accounts.txt", "a") as file:
-        file.write(website + "  ||  "+ username + "  ||  "+ pwd + "\n")
 
 
 def main():
